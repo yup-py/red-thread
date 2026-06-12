@@ -1,9 +1,6 @@
-
-# PROJECT SPECIFICATIONS (CAHIER DES CHARGES)
+# CAHIER DES CHARGES
 
 **Project Title:** Four-Platform OTT & Global Box Office Intelligence System
-
-**Document Version:** 1.2
 
 **Author:** Lead Data Analyst
 
@@ -33,7 +30,7 @@ This project delivers an end-to-end data engineering pipeline and an interactive
 
 * **Platform Benchmarking:** Cross-analyzing content catalog depth, type ratios (Movies vs. TV Shows), and qualitative audience score distributions.
 * **Financial ROI Tracking:** Evaluating the correlation between production budgets and global box office gross returns across Western and South Asian markets.
-* **Trend & Saturation Analysis:** Isolating structural timeline shifts in content duration and regional output density from 1980 to the present day.
+* **Trend & Saturation Analysis:** Isolating structural timeline shifts in content duration and regional output density from 2000 to the present day.
 
 ### 2.2 Out-of-Scope (Phase 2 Restrictions)
 
@@ -97,22 +94,20 @@ To guarantee data consistency, lineage traceability, and high report-rendering p
 
 Inside the Power BI desktop engine, the cleared data assets are structured into a multi-fact star schema configuration to guarantee clean filter propagation and rapid calculation execution.
 
-**Plaintext**
-
 ```
-                 ┌──────────────────────────┐
-                 │        dim_years         │
-                 └────────────┬─────────────┘
-                              │ (1:N)
-                              ▼
-┌──────────────────┐    ┌─────────★────────┐    ┌─────────────────┐
-│  dim_platforms   │───►│streaming_catalog │◄───│   dim_genres    │
-└──────────────────┘(1:N)│   (Fact Table)   │(1:N)└─────────────────┘
-                        └─────────▲────────┘
-                                  │ (1:N)
-                        ┌─────────┴────────┐
-                        │  dim_countries   │
-                        └──────────────────┘
+                       ┌──────────────────────────┐
+                       │        dim_years         │
+                       └────────────┬─────────────┘
+                                    │ (1:N)
+                                    ▼
+┌──────────────────┐      ┌─────────★────────┐       ┌─────────────────┐
+│  dim_platforms   │ ───► │ streaming_catalog │ ◄───  │   dim_genres    │
+└──────────────────┘ (1:N)│   (Fact Table)   │(1:N)  └─────────────────┘
+                          └─────────▲────────┘
+                                    │ (1:N)
+                          ┌─────────┴────────┐
+                          │  dim_countries   │
+                          └──────────────────┘
 ```
 
 * **Central Fact Asset (`streaming_catalog`)** : Tracks core unique title IDs, active platform distribution channels, conformed content durations, clean budgets, gross earnings, and audience rating metrics.
