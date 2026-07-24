@@ -5,3 +5,7 @@ all/
 data/
 
 __pycache__/
+
+logs/
+
+target/
