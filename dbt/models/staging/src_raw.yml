@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw
+    database: FIL_ROUGE_OTT_DB
+    schema: RAW
+    tables:
+      - name: RAW_NETFLIX
+      - name: RAW_AMAZON_PRIME
+      - name: RAW_APPLE
+      - name: RAW_HOTSTAR
+      - name: RAW_BOLLYWOOD
+      - name: RAW_HOLLYWOOD
