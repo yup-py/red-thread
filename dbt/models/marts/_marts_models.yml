@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: dim_content
+    description: "Master dimension table listing unique titles and metadata across both streaming catalogs and box office releases."
+    columns:
+      - name: content_key
+        description: "Primary key generated via MD5 hash of title and content type."
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_genre
+    description: "Dimension table containing distinct unnested genres."
+    columns:
+      - name: genre_key
+        description: "Primary key generated via MD5 hash of genre string."
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_streaming_catalog
+    description: "Fact table recording title availability, details, and platform mappings across streaming services."
+    columns:
+      - name: content_key
+        description: "Foreign key referencing dim_content."
+        tests:
+          - not_null
+
+  - name: fct_box_office
+    description: "Fact table recording theatrical performance, budgets, box office revenues, IMDb ratings, and computed ROI."
+    columns:
+      - name: content_key
+        description: "Foreign key referencing dim_content."
+        tests:
+          - not_null
