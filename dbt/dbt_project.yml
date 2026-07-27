@@ -20,3 +20,7 @@ models:
     staging:
       +materialized: view
       +schema: STAGING
+    intermediate:
+      +schema: INTERMEDIATE
+    marts:
+      +schema: MARTS
