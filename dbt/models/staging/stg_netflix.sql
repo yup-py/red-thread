@@ -4,7 +4,6 @@ with source as (
 
 renamed as (
     select
-        trim(show_id) as show_id,
         trim(type) as content_type,
         trim(title) as title,
         trim(director) as director,

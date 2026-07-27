@@ -8,7 +8,7 @@ renamed as (
         trim(type) as content_type,
         trim(title) as title,
         trim(director) as director,
-        trim("cast") as cast_members,
+        trim("CAST") as cast_members,
         trim(country) as country,
         try_to_date(date_added, 'Month DD, YYYY') as date_added,
         cast(release_year as integer) as release_year,

@@ -7,10 +7,18 @@ renamed as (
         trim(id) as content_id,
         trim(title) as title,
         trim(type) as content_type,
-        trim(genres) as genres,
+        trim(description) as description,
         cast(release_year as integer) as release_year,
-        trim(imdb_score) as imdb_score,
-        trim(rating) as rating
+        trim(age_certification) as rating,
+        cast(runtime as integer) as duration_minutes,
+        trim(genres) as genres,
+        trim(production_countries) as country,
+        cast(seasons as integer) as seasons,
+        trim(imdb_id) as imdb_id,
+        cast(imdb_score as float) as imdb_score,
+        cast(imdb_votes as integer) as imdb_votes,
+        cast(tmdb_popularity as float) as tmdb_popularity,
+        cast(tmdb_score as float) as tmdb_score
     from source
 )
 

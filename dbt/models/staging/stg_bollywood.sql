@@ -4,12 +4,17 @@ with source as (
 
 renamed as (
     select
-        trim(movie_name) as title,
-        cast(year as integer) as release_year,
-        trim(genre) as genre,
-        trim(director) as director,
-        trim(lead_star) as lead_star,
-        try_cast(imdb_rating as float) as imdb_rating
+        trim(title::varchar) as title,
+        coalesce(
+            try_to_date(date::varchar, 'DD-MM-YYYY'),
+            try_to_date(date::varchar, 'YYYY-MM-DD')
+        ) as release_date,
+        trim(genre::varchar) as genre,
+        trim(orig_lang::varchar) as original_language,
+        cast("REVENUE($)" as float) as revenue_usd,
+        cast("BUDGET($)" as float) as budget_usd,
+        trim(country::varchar) as country,
+        cast(score as float) as imdb_score
     from source
 )
 

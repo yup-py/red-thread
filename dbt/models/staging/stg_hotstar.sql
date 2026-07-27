@@ -9,7 +9,7 @@ renamed as (
         cast(year as integer) as release_year,
         trim(genre) as genre,
         trim(age_rating) as age_rating,
-        trim(seasons) as seasons,
+        cast(running_time as integer) as duration_minutes,
         trim(description) as description
     from source
 )
