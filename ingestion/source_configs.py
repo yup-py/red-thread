@@ -34,4 +34,16 @@ SOURCES = {
         "table": "RAW_HOLLYWOOD",
         "has_header": False,
     },
+    "imdb_basics": {
+        "file": "title.basics.tsv",  # Change extension to .csv if your file is CSV
+        "table": "RAW_IMDB_BASICS",
+        "has_header": True,
+        "sep": "\t",                 # Change to "," if your file is CSV
+    },
+    "imdb_ratings": {
+        "file": "title.ratings.tsv", # Change extension to .csv if your file is CSV
+        "table": "RAW_IMDB_RATINGS",
+        "has_header": True,
+        "sep": "\t",                 # Change to "," if your file is CSV
+    },
 }

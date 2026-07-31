@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
 select
-    md5(concat(coalesce(s.title, ''), coalesce(s.content_type, ''))) as content_key,
+    c.content_key,
     s.platform,
     s.platform_id,
     s.title,
@@ -14,3 +14,6 @@ select
     s.duration,
     s.description
 from {{ ref('int_streaming_titles') }} s
+left join {{ ref('dim_content') }} c
+    on lower(s.title) = lower(c.title)
+   and s.content_type = c.content_type

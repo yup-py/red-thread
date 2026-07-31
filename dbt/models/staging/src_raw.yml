@@ -11,3 +11,7 @@ sources:
       - name: RAW_HOTSTAR
       - name: RAW_BOLLYWOOD
       - name: RAW_HOLLYWOOD
+      - name: raw_imdb_ratings
+        identifier: RAW_IMDB_RATINGS
+      - name: raw_imdb_basics
+        identifier: RAW_IMDB_BASICS

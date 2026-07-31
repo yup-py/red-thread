@@ -81,25 +81,26 @@ def ensure_snowflake_ready():
 def read_source(name: str, cfg: dict) -> pd.DataFrame:
     log = get_logger(name)
     path = os.path.join(RAW_DIR, cfg["file"])
+    sep = cfg.get("sep", ",")
 
     if not os.path.exists(path):
-        log.error(f"Expected file at {path} — ensure CSV files are copied into {RAW_DIR}/")
+        log.error(f"Expected file at {path} — ensure CSV/TSV files are copied into {RAW_DIR}/")
         raise FileNotFoundError(
-            f"[{name}] expected file at {path} — ensure CSV files are copied into {RAW_DIR}/"
+            f"[{name}] expected file at {path} — ensure CSV/TSV files are copied into {RAW_DIR}/"
         )
 
     try:
         if cfg["has_header"]:
-            df = pd.read_csv(path, encoding="utf-8")
+            df = pd.read_csv(path, sep=sep, encoding="utf-8", low_memory=False)
         else:
-            df = pd.read_csv(path, encoding="utf-8", header=None)
+            df = pd.read_csv(path, sep=sep, encoding="utf-8", header=None, low_memory=False)
             df.columns = [f"column_{i}" for i in range(len(df.columns))]
     except UnicodeDecodeError:
         log.warning("UTF-8 decode failed, retrying with latin-1 encoding")
         if cfg["has_header"]:
-            df = pd.read_csv(path, encoding="latin-1")
+            df = pd.read_csv(path, sep=sep, encoding="latin-1", low_memory=False)
         else:
-            df = pd.read_csv(path, encoding="latin-1", header=None)
+            df = pd.read_csv(path, sep=sep, encoding="latin-1", header=None, low_memory=False)
             df.columns = [f"column_{i}" for i in range(len(df.columns))]
 
     log.info(f"Loaded {len(df)} rows, {len(df.columns)} columns from {path}")
@@ -129,7 +130,7 @@ def load_to_snowflake(name: str, table: str, df: pd.DataFrame):
         source_row_count = len(df)
 
         # Standardize column headers to upper-case valid Snowflake identifiers
-        df.columns = [c.strip().upper().replace(" ", "_").replace("-", "_") for c in df.columns]
+        df.columns = [str(c).strip().upper().replace(" ", "_").replace("-", "_") for c in df.columns]
 
         log.info(f"Writing {source_row_count} rows to {raw_schema}.{table.upper()}...")
         success, nchunks, nrows, _ = write_pandas(
