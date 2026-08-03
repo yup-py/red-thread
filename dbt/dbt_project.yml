@@ -24,3 +24,7 @@ models:
       +schema: INTERMEDIATE
     marts:
       +schema: MARTS
+
+seeds:
+  ott_analytics:
+    +schema: SEEDS

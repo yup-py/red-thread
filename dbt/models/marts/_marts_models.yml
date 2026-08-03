@@ -11,12 +11,30 @@ models:
           - not_null
 
   - name: dim_genre
-    description: "Dimension table containing distinct unnested genres."
+    description: "Dimension table containing distinct unnested, standardized genres."
     columns:
       - name: genre_key
         description: "Primary key generated via MD5 hash of genre string."
         tests:
           - unique
+          - not_null
+
+  - name: bridge_content_genre
+    description: >
+      Bridge/junction table resolving the many-to-many relationship between
+      dim_content and dim_genre so a title can carry every genre it has
+      without duplicating measures in fct_box_office or fct_streaming_catalog.
+      Power BI should filter by genre through this table (fct -> dim_content
+      -> bridge_content_genre -> dim_genre), not by joining facts directly to
+      genre text.
+    columns:
+      - name: content_key
+        description: "Foreign key referencing dim_content."
+        tests:
+          - not_null
+      - name: genre_key
+        description: "Foreign key referencing dim_genre."
+        tests:
           - not_null
 
   - name: fct_streaming_catalog
@@ -28,7 +46,12 @@ models:
           - not_null
 
   - name: fct_box_office
-    description: "Fact table recording theatrical performance, budgets, box office revenues, IMDb ratings, and computed ROI."
+    description: >
+      Fact table recording theatrical performance, budgets, box office revenues,
+      IMDb ratings, and computed ROI. Joins to IMDb on (title, release_year); when
+      that pair matches more than one IMDb title (homonyms/remakes), the
+      highest-vote-count match is used so budget_usd/revenue_usd are never
+      duplicated by the join.
     columns:
       - name: content_key
         description: "Foreign key referencing dim_content."

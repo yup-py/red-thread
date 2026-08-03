@@ -1,0 +1,42 @@
+version: 2
+
+seeds:
+  - name: seed_genre_mapping
+    description: >
+      Canonical genre lookup used to standardize inconsistent genre labels found
+      across Netflix, Amazon Prime, Apple TV, Hotstar, Bollywood, and Hollywood
+      sources (e.g. "Animes" -> "Anime", "Science Fiction"/"Sci-Fi" -> "Sci-Fi",
+      "Kids"/"Children" -> "Family & Kids"). raw_genre is the lowercased, trimmed
+      token produced after exploding a title's comma/slash-separated genre string;
+      standardized_genre is the single canonical value to display and filter on.
+      A blank standardized_genre means the raw token carries no genre meaning
+      (e.g. stray words like "of", "film", "movie" produced by splitting
+      malformed compound genre strings in the Bollywood source) and is dropped
+      downstream in int_title_genres.
+    columns:
+      - name: raw_genre
+        description: "Lowercased, trimmed raw genre token as it appears in source data."
+        tests:
+          - unique
+          - not_null
+      - name: standardized_genre
+        description: "Canonical genre value. Empty string signals the token should be discarded."
+
+  - name: seed_rating_mapping
+    description: >
+      Canonical age-rating lookup used to standardize certification values across
+      sources. Netflix and Apple TV already use standard MPAA/TV codes. Amazon
+      Prime uses a mix of standard codes and its own scheme (e.g. "13+", "AGES_16_",
+      "NOT_RATE"). Hotstar uses the Indian CBFC scale (U, U/A 7+, U/A 13+, U/A 16+, A),
+      which is mapped to its closest MPAA/TV equivalent as a documented assumption
+      (U -> G, U/A 7+ -> TV-Y7, U/A 13+ -> PG-13, U/A 16+ -> TV-MA, A -> R).
+    columns:
+      - name: raw_rating
+        description: "Lowercased, trimmed raw rating/certification value as it appears in source data."
+        tests:
+          - unique
+          - not_null
+      - name: standardized_rating
+        description: "Canonical MPAA/TV-style rating value."
+        tests:
+          - not_null

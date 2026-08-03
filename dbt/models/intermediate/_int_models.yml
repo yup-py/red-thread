@@ -22,7 +22,13 @@ models:
           - not_null
 
   - name: int_title_genres
-    description: "Normalizes comma-separated genres into single rows per title for clean dashboard filtering."
+    description: >
+      Normalizes comma/slash-separated genres into single rows per title for clean
+      dashboard filtering. Raw genre tokens are standardized via a lookup against
+      seed_genre_mapping (see dbt/seeds/_seeds.yml) so equivalent labels from
+      different sources (e.g. "Animes" vs "Anime", "Science Fiction" vs "Sci-Fi")
+      collapse into one canonical value. This model feeds bridge_content_genre,
+      which relates content to genre without duplicating fact measures.
     columns:
       - name: title
         description: "Title associated with the genre."

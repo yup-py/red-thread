@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_netflix
+    description: "Cleaned Netflix catalog. rating is standardized via seed_rating_mapping."
+  - name: stg_amazon_prime
+    description: "Cleaned Amazon Prime catalog. rating is standardized via seed_rating_mapping (source uses a mix of standard and non-standard codes, e.g. '13+', 'AGES_16_', 'NOT_RATE')."
+  - name: stg_apple
+    description: "Cleaned Apple TV catalog. rating is standardized via seed_rating_mapping."
+  - name: stg_hotstar
+    description: "Cleaned Hotstar catalog. age_rating is standardized via seed_rating_mapping, mapping the Indian CBFC scale (U, U/A 7+/13+/16+, A) to its closest MPAA/TV equivalent."
