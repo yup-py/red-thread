@@ -6,7 +6,11 @@ renamed as (
     select
         trim(id) as content_id,
         trim(title) as title,
-        trim(type) as content_type,
+        case
+            when upper(trim(type)) = 'MOVIE' then 'Movie'
+            when upper(trim(type)) = 'SHOW' then 'TV Show'
+            else initcap(trim(type))
+        end as content_type,
         trim(description) as description,
         cast(release_year as integer) as release_year,
         trim(age_certification) as rating,

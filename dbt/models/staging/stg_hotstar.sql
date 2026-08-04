@@ -5,7 +5,11 @@ with source as (
 renamed as (
     select
         trim(title) as title,
-        trim(type) as content_type,
+        case
+            when lower(trim(type)) = 'movie' then 'Movie'
+            when lower(trim(type)) = 'tv' then 'TV Show'
+            else initcap(trim(type))
+        end as content_type,
         cast(year as integer) as release_year,
         trim(genre) as genre,
         trim(age_rating) as age_rating,
