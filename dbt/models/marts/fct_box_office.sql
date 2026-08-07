@@ -1,9 +1,5 @@
 {{ config(materialized='table') }}
 
--- int_imdb can have multiple titles sharing the same (title, release_year)
--- for homonyms/remakes. Joining directly on that pair would fan out this
--- fact and duplicate budget_usd/revenue_usd. Pick the best-attested IMDb
--- match per (title, release_year) -- highest vote count -- before joining.
 with imdb_deduped as (
     select *
     from {{ ref('int_imdb') }}

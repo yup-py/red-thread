@@ -1,12 +1,5 @@
 {{ config(materialized='table') }}
 
--- Bridge (junction) table resolving the many-to-many relationship between
--- content and genre. A title can carry several genres, but fact tables must
--- stay at the content grain -- filtering by genre in Power BI should go
--- fct_* -> dim_content -> bridge_content_genre -> dim_genre, which never
--- fans out fct_box_office / fct_streaming_catalog measures, since those
--- still join to dim_content 1:1 on content_key.
-
 with content_genre as (
     select distinct
         c.content_key,

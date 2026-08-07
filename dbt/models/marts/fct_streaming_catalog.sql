@@ -1,8 +1,5 @@
 {{ config(materialized='table') }}
 
--- Same logic as fct_box_office: int_imdb can have multiple titles sharing
--- the same (title, release_year) for homonyms/remakes. Dedup to the
--- highest-vote match before joining so this fact is never fanned out.
 with imdb_deduped as (
     select *
     from {{ ref('int_imdb') }}

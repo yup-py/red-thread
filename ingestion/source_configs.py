@@ -35,15 +35,15 @@ SOURCES = {
         "has_header": False,
     },
     "imdb_basics": {
-        "file": "title.basics.tsv",  # Change extension to .csv if your file is CSV
+        "file": "title.basics.tsv",
         "table": "RAW_IMDB_BASICS",
         "has_header": True,
-        "sep": "\t",                 # Change to "," if your file is CSV
+        "sep": "\t",
     },
     "imdb_ratings": {
-        "file": "title.ratings.tsv", # Change extension to .csv if your file is CSV
+        "file": "title.ratings.tsv",
         "table": "RAW_IMDB_RATINGS",
         "has_header": True,
-        "sep": "\t",                 # Change to "," if your file is CSV
+        "sep": "\t",
     },
 }
