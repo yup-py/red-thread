@@ -232,9 +232,7 @@ Power BI Executive Overview Dashboard
 
 ### Image
 
-```md
 ![Power BI Executive Overview Dashboard](power_bi/images/dashboard_overview.png)
-```
 
 ### Explanation
 
@@ -252,9 +250,7 @@ Apache Airflow Pipeline Execution
 
 ### Image
 
-```md
 ![Apache Airflow Pipeline](documents/images/airflow_dag.png)
-```
 
 ### Explanation
 
@@ -272,9 +268,7 @@ Snowflake Data Warehouse Architecture
 
 ### Image
 
-```md
 ![Snowflake Data Warehouse](documents/images/snowflake_schema.png)
-```
 
 ### Explanation
 
@@ -292,9 +286,7 @@ dbt Model Lineage
 
 ### Image
 
-```md
 ![dbt Lineage Graph](documents/images/dbt_lineage.png)
-```
 
 ### Explanation
 
